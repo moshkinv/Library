@@ -8,18 +8,18 @@ namespace Library.Data
     public class UnitOfWork : IDisposable
     {
         private LibraryContext context = new LibraryContext();
-        private GenericRepository<Book> _booksRepository;
+        private GenericRepository<Book> booksRepository;
 
         public GenericRepository<Book> BooksRepository
         {
             get
             {
-                if (this._booksRepository == null)
+                if (booksRepository == null)
                 {
-                    this._booksRepository = new GenericRepository<Book>(context);
+                    booksRepository = new GenericRepository<Book>(context);
                 }
 
-                return _booksRepository;
+                return booksRepository;
             }
         }
 
@@ -28,24 +28,9 @@ namespace Library.Data
             context.SaveChanges();
         }
 
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            context.Dispose();
         }
     }
 }

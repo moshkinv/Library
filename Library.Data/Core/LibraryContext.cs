@@ -7,7 +7,7 @@ namespace Library.Data.Core
     {
         public LibraryContext() : base("Data Source=DESKTOP-8K6GN4A\\SQLEXPRESS; Initial Catalog=librarydb; Integrated Security=True")
         {
-            Database.SetInitializer<LibraryContext>(new LibraryDbInitializer());
+            Database.SetInitializer(new LibraryDbInitializer());
         }
 
         public DbSet<Book> Books { get; set; }

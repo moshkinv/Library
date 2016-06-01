@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div ng-app="LibraryApp" ng-controller="BooksListController" ng-cloak>
+    
+    <div class="row">
+        <div class="col-md-2" style="margin-bottom:15px; margin-top:15px;">
+            <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#bookModal" ng-click="addBook(book)"><span class="glyphicon glyphicon-plus"></span> Add new book</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <b>Inventary Number</b>
+                    </td>
+                    <td>
+                        <b>Book Title</b>
+                    </td>
+                    <td>
+                        <b>Author</b>
+                    </td>
+                    <td>
+                        <b>Year</b>
+                    </td>
+                </tr>
+                <tr ng-repeat="book in books">
+                    <td>
+                        {{book.InventaryNumber}}
+                    </td>
+                    <td>
+                        {{book.Title}}
+                    </td>
+                    <td>
+                        {{book.Author}}
+                    </td>
+                    <td>
+                        {{book.Year}}
+                    </td>
+                    <td style="width:50px">
+                        <span class="glyphicon glyphicon-edit" title="Edit" data-toggle="modal" data-target="#bookModal" ng-click="editBook(book)"></span>
+                        <span class="glyphicon glyphicon-remove" title="Remove" data-toggle="modal" data-target="#sureModal" ng-click="deleteBook(book)"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal for editing and creating -->
+    <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalLabel" ng-controller="ModalController">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form name="bookForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="bookModalLabel">{{modalTitle}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="titleInput">Book title</label>
+                                    <input type="text" ng-model="book.Title" ng-model-options="{ updateOn: 'blur' }" name="bTitle" required="" class="form-control" id="titleInput" placeholder="Title">
+                                    <div ng-show="bookForm.$submitted || bookForm.bTitle.$touched">
+                                        <p style="color:orangered" ng-show="bookForm.bTitle.$error.required">Field is required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="authorInput">Author</label>
+                                    <input type="text" ng-model="book.Author" required="" name="bAuthor" class="form-control" id="authorInput" placeholder="Author">
+                                    <div ng-show="bookForm.$submitted || bookForm.bAuthor.$touched">
+                                        <p style="color:orangered" ng-show="bookForm.bAuthor.$error.required">Field is required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="invNumInput">Inventary number</label>
+                                    <input type="text" ng-model="book.InventaryNumber" name="bInvNum" required="" class="form-control" id="invNumInput" placeholder="Inventary number">
+                                    <div ng-show="bookForm.$submitted || bookForm.bInvNum.$touched">
+                                        <p style="color:orangered" ng-show="bookForm.bInvNum.$error.required">Field is required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="yearInput">Year</label>
+                                    <input type="number" ng-model="book.Year" name="bYear" required class="form-control" id="yearInput" placeholder="Year">
+                                    <div ng-show="bookForm.$submitted || bookForm.bYear.$touched">
+                                        <p style="color:orangered" ng-show="bookForm.bYear.$error.required">Field is required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveBook()">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>

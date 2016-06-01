@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div ng-app="LibraryApp" ng-controller="BooksListController">
+    <br />
+    <div class="row">
+        <div class="col-md-2" style="margin-bottom:15px">
+            <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" ng-click="addBook(book)"><span class="glyphicon glyphicon-plus"></span> Add new book</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <b>Inventary Number</b>
+                    </td>
+                    <td>
+                        <b>Book Title</b>
+                    </td>
+                    <td>
+                        <b>Author</b>
+                    </td>
+                    <td>
+                        <b>Year</b>
+                    </td>
+                </tr>
+                <tr ng-repeat="book in books">
+                    <td>
+                        {{book.InventaryNumber}}
+                    </td>
+                    <td>
+                        {{book.Title}}
+                    </td>
+                    <td>
+                        {{book.Author}}
+                    </td>
+                    <td>
+                        {{book.Year}}
+                    </td>
+                    <td style="width:50px">
+                        <span class="glyphicon glyphicon-edit" title="Edit" data-toggle="modal" data-target="#myModal" ng-click="editBook(book)"></span>
+                        <span class="glyphicon glyphicon-remove" title="Remove"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="BookController">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{modalTitle}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form name="bookForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="titleInput">Book title</label>
+                                        <input type="text" ng-model="book.Title" name="bTitle" required="" class="form-control" id="titleInput" placeholder="Title">
+                                        <p style="color:orangered" ng-show="bookForm.bTitle.$error.required">Please fill Title field</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="authorInput">Author</label>
+                                        <input type="text" ng-model="book.Author" required="" class="form-control" id="authorInput" placeholder="Author">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="invNumInput">Inventary number</label>
+                                        <input type="text" ng-model="book.InventaryNumber" required="" class="form-control" id="invNumInput" placeholder="Inventary number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="yearInput">Year</label>
+                                        <input type="number" ng-model="book.Year" name="bYear" min="0" max="2016" integer class="form-control" id="yearInput" placeholder="Year">
+                                        <p style="color:orangered" ng-show="bookForm.bYear.$error.required">The year is not valid!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismissBookChanges()">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveBook()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

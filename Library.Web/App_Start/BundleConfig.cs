@@ -32,6 +32,9 @@ namespace Library
 
             bundles.Add(new ScriptBundle("~/bundles/angularSrc").IncludeDirectory(
                       "~/Scripts/ng", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/jasmine").IncludeDirectory(
+                      "~/Scripts/jasmine", "*.js", true));
         }
     }
 }
